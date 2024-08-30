@@ -17,8 +17,11 @@ secret_key = os.getenv('SECRET_KEY')
 # Função para inicializar o banco de dados
 def init_db():
     # Garante que o diretório existe
+    print(f"db_path: {db_path}")
+    
     db_dir = os.path.dirname(db_path)
-    if not os.path.exists(db_dir) and db_dir != '':
+    
+    if not os.path.exists(db_dir):
         os.makedirs(db_dir)
     
     # Conecta ao banco de dados
@@ -36,6 +39,9 @@ def init_db():
     # Salva e fecha a conexão
     conn.commit()
     conn.close()
+    
+if __name__ == "__main__":
+    init_db()
 
 # Função para adicionar tarefa
 def add_task(title, description, due_date, due_time, frequency):
