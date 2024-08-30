@@ -130,11 +130,12 @@ def get_pending_tasks():
 def get_completed_tasks():
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
-    
-    # Seleciona tarefas que foram concluídas
-    c.execute('SELECT id, title, description, due_date, completed_date FROM tasks WHERE completed_date IS NOT NULL')
-    tasks = c.fetchall()
-    
+    try:
+        c.execute('SELECT id, title, description, due_date, completed_date FROM tasks WHERE completed_date IS NOT NULL')
+        tasks = c.fetchall()
+    except sqlite3.OperationalError as e:
+        print(f"Erro ao acessar o banco de dados: {e}")
+        tasks = []
     conn.close()
     return tasks
 
