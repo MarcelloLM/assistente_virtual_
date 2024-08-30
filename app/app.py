@@ -50,12 +50,6 @@ def check_table_structure(db_path):
     columns = c.fetchall()
     conn.close()
     return columns
-
-if __name__ == "__main__":
-    db_path = "H:/Atendentes CAF pastas/Marcello/ANÁLISELIVEOFF/Assistente_virtual/data/tasks.db"
-    structure = check_table_structure(db_path)
-    for col in structure:
-        print(col)
         
 # Função para adicionar tarefa
 def add_task(title, description, due_date, due_time, frequency):
