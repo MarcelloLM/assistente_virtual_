@@ -1,7 +1,11 @@
+import os
+from dotenv import load_dotenv
 import sqlite3
 
+load_dotenv()
+
 # Caminho para o banco de dados
-db_path = r'H:\Atendentes CAF pastas\Marcello\ANÁLISELIVEOFF\Assistente_virtual\data\tasks.db'
+db_path = os.getenv('DB_PATH')
 
 # Conecta ao banco de dados
 conn = sqlite3.connect(db_path)

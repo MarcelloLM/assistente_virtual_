@@ -1,2 +1,3 @@
 # .gitignore
 .env
+DB_PATH=H:/Atendentes CAF pastas/Marcello/ANÁLISELIVEOFF/Assistente_virtual/data/tasks.db

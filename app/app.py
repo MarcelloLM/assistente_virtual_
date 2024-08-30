@@ -14,9 +14,6 @@ load_dotenv()
 db_path = os.getenv('DB_PATH')
 secret_key = os.getenv('SECRET_KEY')
 
-# Caminho absoluto para o banco de dados
-db_path = r'H:\Atendentes CAF pastas\Marcello\ANÁLISELIVEOFF\Assistente_virtual\data\tasks.db'
-
 # Função para inicializar o banco de dados
 def init_db():
     # Garante que o diretório existe
