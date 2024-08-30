@@ -31,7 +31,10 @@ def init_db():
                   title TEXT NOT NULL,
                   description TEXT,
                   due_date TEXT,
-                  due_time TEXT)''')
+                  due_time TEXT,
+                  frequency TEXT,
+                  completed_date TEXT,
+                  time_spent INTEGER)''')
     
     # Salva e fecha a conexão
     conn.commit()
@@ -138,8 +141,12 @@ def get_completed_tasks():
 def get_task_history():
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
-    c.execute('SELECT title FROM tasks WHERE completed_date IS NOT NULL')
-    tasks = c.fetchall()
+    try:
+        c.execute('SELECT title FROM tasks WHERE completed_date IS NOT NULL')
+        tasks = c.fetchall()
+    except sqlite3.OperationalError as e:
+        print(f"Erro ao acessar o banco de dados: {e}")
+        tasks = []
     conn.close()
     return [task[0] for task in tasks]
 
