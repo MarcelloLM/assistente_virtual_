@@ -95,18 +95,18 @@ def check_reminders():
     tasks = get_tasks()
     now = datetime.now()
     upcoming_tasks = []
-    
+
     for task in tasks:
         # Verifica se a tupla tem pelo menos 5 elementos
         if len(task) < 6:
             continue
-        
+
         due_datetime_str = f"{task[3]} {task[4]}"
         try:
             due_datetime = datetime.strptime(due_datetime_str, '%Y-%m-%d %H:%M')
         except ValueError:
             continue
-        
+
         # Verifica se a tarefa é recorrente
         if task[5] == "Diária":
             if now.time() == datetime.strptime(task[4], '%H:%M').time() and now.date() >= datetime.strptime(task[3], '%Y-%m-%d').date():
@@ -119,7 +119,7 @@ def check_reminders():
                 upcoming_tasks.append(task)
         elif now <= due_datetime <= (now + timedelta(hours=1)):
             upcoming_tasks.append(task)
-    
+
     return upcoming_tasks
 
 def mark_task_completed(task_id):
