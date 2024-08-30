@@ -17,8 +17,9 @@ secret_key = os.getenv('SECRET_KEY')
 # Função para inicializar o banco de dados
 def init_db():
     # Garante que o diretório existe
-    if not os.path.exists(os.path.dirname(db_path)):
-        os.makedirs(os.path.dirname(db_path))
+    db_dir = os.path.dirname(db_path)
+    if not os.path.exists(db_dir) and db_dir != '':
+        os.makedirs(db_dir)
     
     # Conecta ao banco de dados
     conn = sqlite3.connect(db_path)
