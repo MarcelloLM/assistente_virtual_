@@ -43,14 +43,32 @@ def init_db():
 if __name__ == "__main__":
     init_db()
 
+def check_table_structure(db_path):
+    conn = sqlite3.connect(db_path)
+    c = conn.cursor()
+    c.execute("PRAGMA table_info(tasks)")
+    columns = c.fetchall()
+    conn.close()
+    return columns
+
+if __name__ == "__main__":
+    db_path = "H:/Atendentes CAF pastas/Marcello/ANÁLISELIVEOFF/Assistente_virtual/data/tasks.db"
+    structure = check_table_structure(db_path)
+    for col in structure:
+        print(col)
+        
 # Função para adicionar tarefa
 def add_task(title, description, due_date, due_time, frequency):
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
-    c.execute('INSERT INTO tasks (title, description, due_date, due_time, frequency) VALUES (?, ?, ?, ?, ?)',
-              (title, description, due_date, due_time, frequency))
-    conn.commit()
-    conn.close()
+    try:
+        c.execute('INSERT INTO tasks (title, description, due_date, due_time, frequency) VALUES (?, ?, ?, ?, ?)',
+                  (title, description, due_date, due_time, frequency))
+        conn.commit()
+    except sqlite3.OperationalError as e:
+        print(f"Erro ao adicionar tarefa: {e}")
+    finally:
+        conn.close()
 
 # Função para remover tarefa
 def remove_task(task_id):
